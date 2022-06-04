@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_app/not_found.dart';
 
 class Routing {
   static final Routing _instance = Routing();
@@ -31,7 +32,8 @@ class Routing {
       Widget page = pages[pageName]!.run(); // 遷移ページの設定
       _pageUpdate(page); // ページの出力
     } else {
-      // todo: 404ページの実装
+      // ページノットファウンド
+      _pageUpdate( const NotFound() );
     }
   }
 
