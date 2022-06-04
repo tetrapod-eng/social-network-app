@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_app/core/base_color.dart';
+import 'package:flutter_base_app/core/routing.dart';
 
 class BackModelHeader extends StatelessWidget {
   final String text;
@@ -17,14 +18,19 @@ class BackModelHeader extends StatelessWidget {
     return Container(
       width: size.width,
       padding: const EdgeInsets.symmetric(
-          vertical: 18,
-          horizontal: 12
+        vertical: 18,
+        horizontal: 12
       ),
       margin: EdgeInsets.only(top: safeTop),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.arrow_back, color: BaseColor.stringColor()),
+          GestureDetector(
+            onTap: (){
+              Routing.getInstance().back();
+            },
+            child: Icon(Icons.arrow_back, color: BaseColor.stringColor())
+          ),
           Text(text, style: TextStyle(
               color: BaseColor.stringColor()
           ))

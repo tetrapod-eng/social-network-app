@@ -1,7 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_base_app/core/layout.dart';
+import 'package:flutter_base_app/core/memory_storage.dart';
+import 'package:flutter_base_app/core/routing.dart';
+import 'package:flutter_base_app/framework_initialize.dart';
+import 'package:flutter_base_app/pkg/social_network_app/app/initialize.dart';
+import 'package:flutter_base_app/pkg/social_network_app/app/usecase/auth/impl_auth_usecase.dart';
+import 'package:flutter_base_app/pkg/social_network_app/app/usecase/auth/mock_auth.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/common/side_menu.dart';
+import 'package:flutter_base_app/pkg/social_network_app/components/timeline/tweet.com.dart';
 
 void main() {
+  FrameworkInitialize.initialize();
+
   runApp(const MyApp());
 }
 
@@ -30,18 +42,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late Widget _page = Container();
+
+  void movePage(Widget page) {
+
+    setState(() {
+      _page = page;
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    Routing.getInstance().setPageUpdate(movePage);
+    Routing.getInstance().navigation("home");
+  }
 
   @override
   Widget build(BuildContext context) {
+    final MediaQueryData queryData = MediaQuery.of(context);
+    final MockAuth auth = MemoryStorage.getInstance().make<ImplAuthUseCase>() as MockAuth;
 
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: const <Widget>[],
-      ),
-      drawer: const Drawer(
-        child: SideMenu(),
-      ),
+    log(auth.authCheck().toString());
+
+    return Layout(
+      body: _page
     );
   }
 }

@@ -12,7 +12,8 @@ class ProfileSubText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text, style: const TextStyle(
       color: Colors.grey,
-      fontSize: 10
+      fontSize: 10,
+      overflow: TextOverflow.visible
     ));
   }
 }

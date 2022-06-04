@@ -9,4 +9,8 @@ class BaseColor {
   static Color stringColor() {
     return const Color(0xFFFFFFFF);
   }
+
+  static Color borderColor() {
+    return const Color.fromRGBO(56, 68, 77, 1);
+  }
 }

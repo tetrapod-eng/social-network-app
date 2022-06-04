@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_base_app/core/base_color.dart';
+import 'package:flutter_base_app/core/memory_storage.dart';
+import 'package:flutter_base_app/core/routing.dart';
+import 'package:flutter_base_app/pkg/social_network_app/app/usecase/auth/impl_auth_usecase.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/button/icon_button/book_mark.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/button/icon_button/menu_message.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/button/icon_button/menu_topic.dart';
@@ -13,6 +18,8 @@ import 'package:flutter_base_app/pkg/social_network_app/domain/model/user_id.dar
 import 'package:flutter_base_app/pkg/social_network_app/domain/model/user_name.dart';
 import 'package:flutter_base_app/pkg/social_network_app/page/profile.page.dart';
 
+import '../../app/usecase/auth/mock_auth.dart';
+
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);
 
@@ -20,14 +27,10 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final MediaQueryData media = MediaQuery.of(context);
     final double topPadding = media.padding.top;
+    final auth = MemoryStorage.getInstance().make<ImplAuthUseCase>() as MockAuth;
     const double contentMargin = 10.0;
 
-    UserAccount account = UserAccount(
-        UserId("teto_sys"),
-        ProfileIconUrl("https://newsimg.oricon.co.jp/feed/images/size640wh/20220421_134645_size640wh_2318.jpg"),
-        UserName("わんぱち@犬って思うな"),
-        ModelProfileSubText("10万ボルトくらい流せる")
-    );
+    UserAccount account = auth.getAccount();
 
     return Container(
       width: media.size.width * 0.8,
@@ -61,11 +64,7 @@ class SideMenu extends StatelessWidget {
               ),
               child: GestureDetector(
                 onTap: (){
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (c) {
-                      return const ProfilePage();
-                    })
-                  );
+                  Routing.getInstance().navigation("profile");
                 },
                 child: const MenuUserProfile()
               )
