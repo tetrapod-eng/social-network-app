@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_app/core/base_color.dart';
-import 'package:flutter_base_app/pkg/social_network_app/components/avatar/circle_avatar.dart';
-import 'package:flutter_base_app/pkg/social_network_app/components/profile/profile_sub_text.dart';
-import 'package:flutter_base_app/pkg/social_network_app/components/text/user_name_def.dart';
-import 'package:flutter_base_app/pkg/social_network_app/components/timeline/tweet_text.com.dart';
+
+import '../avatar/circle_avatar.dart' as com_avatar;
+import '../timeline/tweet_profile.com.dart' as com_profile;
+import '../timeline/tweet_text.com.dart' as com_tweet_text;
+import '../../domain/model/user/profile_icon_url.dart';
+import '../../domain/model/tweet/tweet_id.dart';
+import '../../domain/entities/tweet.dart' as md_tweet;
+import '../../domain/model/user/user_id.dart';
+import '../../domain/model/user/user_name.dart';
+import '../../domain/model/tweet/tweet_text.dart' as md_tweet_text;
+
 
 class Tweet extends StatelessWidget {
-  const Tweet({Key? key}) : super(key: key);
+  final md_tweet.Tweet tweet;
+
+  const Tweet({
+    Key? key,
+    required this.tweet
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final TweetId tweetId = tweet.tweetId;
+    final md_tweet_text.TweetText text = tweet.text;
+    final UserId userId = tweet.userId;
+    final UserName userName = tweet.userName;
+    final ProfileIconUrl iconUrl = tweet.iconUrl;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -28,24 +45,22 @@ class Tweet extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AccountCircleAvatar(src: "https://newsimg.oricon.co.jp/feed/images/size640wh/20220421_134645_size640wh_2318.jpg"),
+          com_avatar.AccountCircleAvatar(src: iconUrl.iconUrl),
           Container(
             margin: const EdgeInsets.only(left: 8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    UserNameDef(userName: "わんぱち@犬"),
-                    ProfileSubText(text: "@one_patch"),
-                  ],
+                com_profile.TweetProfile(
+                  userId: userId.userId,
+                  userName: userName.name,
                 ),
+                // ツイートテキスト
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: TweetText(
-                    text: "テキストツィート。テキストツィート。テキストツィート。テキストツィート。テキストツィート。テキストツィート。テキストツィート。",
+                  child: com_tweet_text.TweetText(
+                    text: text.text,
                     width: size.width - 95,
                   ),
                 )

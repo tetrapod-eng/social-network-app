@@ -10,6 +10,7 @@ import 'package:flutter_base_app/pkg/social_network_app/app/usecase/auth/impl_au
 import 'package:flutter_base_app/pkg/social_network_app/app/usecase/auth/mock_auth.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/common/side_menu.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/timeline/tweet.com.dart';
+import 'package:flutter_base_app/pkg/social_network_app/page/timelime.page.dart';
 
 void main() {
   FrameworkInitialize.initialize();
@@ -42,32 +43,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Widget _page = Container();
-
-  void movePage(Widget page) {
-
-    setState(() {
-      _page = page;
-    });
-  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    Routing.getInstance().setPageUpdate(movePage);
-    Routing.getInstance().navigation("home");
   }
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData queryData = MediaQuery.of(context);
-    final MockAuth auth = MemoryStorage.getInstance().make<ImplAuthUseCase>() as MockAuth;
 
-    log(auth.authCheck().toString());
-
-    return Layout(
-      body: _page
+    return const Layout( // Home Page
+      body: TimelinePage()
     );
   }
 }

@@ -17,6 +17,7 @@ class BackModelHeader extends StatelessWidget {
 
     return Container(
       width: size.width,
+      height: 55,
       padding: const EdgeInsets.symmetric(
         vertical: 18,
         horizontal: 12
@@ -27,7 +28,7 @@ class BackModelHeader extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: (){
-              Routing.getInstance().back();
+              Routing.getInstance().back(context);
             },
             child: Icon(Icons.arrow_back, color: BaseColor.stringColor())
           ),

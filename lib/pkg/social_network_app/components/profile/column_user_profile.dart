@@ -3,9 +3,9 @@ import 'package:flutter_base_app/pkg/social_network_app/components/avatar/circle
 import 'package:flutter_base_app/pkg/social_network_app/components/profile/profile_sub_text.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/text/user_name_def.dart';
 import 'package:flutter_base_app/pkg/social_network_app/domain/entities/user_account.dart';
-import 'package:flutter_base_app/pkg/social_network_app/domain/model/profile_icon_url.dart';
-import 'package:flutter_base_app/pkg/social_network_app/domain/model/profile_sub_text.dart';
-import 'package:flutter_base_app/pkg/social_network_app/domain/model/user_name.dart';
+import 'package:flutter_base_app/pkg/social_network_app/domain/model/user/profile_icon_url.dart';
+import 'package:flutter_base_app/pkg/social_network_app/domain/model/user/profile_sub_text.dart';
+import 'package:flutter_base_app/pkg/social_network_app/domain/model/user/user_name.dart';
 
 class ColumnUserProfile extends StatelessWidget {
   final UserAccount account;

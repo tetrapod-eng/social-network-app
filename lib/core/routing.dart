@@ -4,7 +4,6 @@ import 'package:flutter_base_app/not_found.dart';
 class Routing {
   static final Routing _instance = Routing();
   late final Function _pageUpdate;
-  late List _beforePageName = [];
   Map<String, RoutingRun> pages = {};
 
   static Routing getInstance() {
@@ -24,25 +23,26 @@ class Routing {
   }
 
   // ページ遷移処理
-  void navigation(String pageName) {
+  void navigation(String pageName, BuildContext context) {
 
     if (pages.containsKey(pageName)) { // ページが登録されている場合
 
-      _beforePageName.add(pageName);
       Widget page = pages[pageName]!.run(); // 遷移ページの設定
-      _pageUpdate(page); // ページの出力
+
+      Navigator.of(context).push(MaterialPageRoute(builder: (c) {
+        return page;
+      }));
     } else {
       // ページノットファウンド
-      _pageUpdate( const NotFound() );
+      Navigator.of(context).push(MaterialPageRoute(builder: (c) {
+        return const NotFound();
+      }));
     }
   }
 
-  void back() {
-    String beforeName = _beforePageName[ _beforePageName.length - 2];
+  void back(BuildContext context) {
 
-    if (pages.containsKey(beforeName)) {
-      _pageUpdate(pages[beforeName]!.run());
-    }
+    Navigator.of(context).pop();
   }
 }
 

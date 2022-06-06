@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_app/core/base_color.dart';
 import 'package:flutter_base_app/core/layout.dart';
+import 'package:flutter_base_app/pkg/social_network_app/app/controller/GetTweetController.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/common/back_mode_header.com.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/profile/profile_and_avatar.com.dart';
-import 'package:flutter_base_app/pkg/social_network_app/components/timeline/tweet.com.dart';
+import 'package:flutter_base_app/pkg/social_network_app/components/timeline/timeline_list.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -11,27 +12,31 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData query = MediaQuery.of(context);
-    final double safeTop = query.padding.top;
     final Size size = query.size;
+    final GetTweetController getTweetController = GetTweetController();
+    final double profileHeight = ((size.width / 398) * 133) + 60;
 
-    return Container(
-      width: size.width,
-      height: size.height,
-      decoration: BoxDecoration(
-        color: BaseColor.mainColor()
-      ),
-      child: SingleChildScrollView(
+    return Layout(
+       body: Container(
+        width: size.width,
+        height: size.height,
+        decoration: BoxDecoration(
+          color: BaseColor.mainColor()
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            BackModelHeader(text: "てとらぽっど"),
-            ProfileAndAvatar(),
-            Tweet(),
-            Tweet(),
-            Tweet(),
-            Tweet(),
-            Tweet(),
-            Tweet(),
+          children: [
+            // size: 55,
+            const BackModelHeader(text: "てとらぽっど"),
+            const ProfileAndAvatar(),
+            Container(
+              width: size.width,
+              height: size.height - (profileHeight + 197),
+              decoration: const  BoxDecoration(
+                color: Colors.redAccent
+              ),
+              child: TimelineList(stream: getTweetController.findByUserId("one_pachi"))
+            )
           ],
         ),
       ),

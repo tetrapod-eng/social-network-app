@@ -12,10 +12,10 @@ import 'package:flutter_base_app/pkg/social_network_app/components/button/icon_b
 import 'package:flutter_base_app/pkg/social_network_app/components/profile/column_user_profile.dart';
 import 'package:flutter_base_app/pkg/social_network_app/components/profile/profile_follow_er.dart';
 import 'package:flutter_base_app/pkg/social_network_app/domain/entities/user_account.dart';
-import 'package:flutter_base_app/pkg/social_network_app/domain/model/profile_icon_url.dart';
-import 'package:flutter_base_app/pkg/social_network_app/domain/model/profile_sub_text.dart';
-import 'package:flutter_base_app/pkg/social_network_app/domain/model/user_id.dart';
-import 'package:flutter_base_app/pkg/social_network_app/domain/model/user_name.dart';
+import 'package:flutter_base_app/pkg/social_network_app/domain/model/user/profile_icon_url.dart';
+import 'package:flutter_base_app/pkg/social_network_app/domain/model/user/profile_sub_text.dart';
+import 'package:flutter_base_app/pkg/social_network_app/domain/model/user/user_id.dart';
+import 'package:flutter_base_app/pkg/social_network_app/domain/model/user/user_name.dart';
 import 'package:flutter_base_app/pkg/social_network_app/page/profile.page.dart';
 
 import '../../app/usecase/auth/mock_auth.dart';
@@ -64,7 +64,7 @@ class SideMenu extends StatelessWidget {
               ),
               child: GestureDetector(
                 onTap: (){
-                  Routing.getInstance().navigation("profile");
+                  Routing.getInstance().navigation("profile", context);
                 },
                 child: const MenuUserProfile()
               )
