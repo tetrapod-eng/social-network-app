@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:math';
-
 import 'package:flutter_base_app/core/memory_storage.dart';
 import 'package:flutter_base_app/pkg/social_network_app/app/gateways/get/ImplTweetRepository.dart';
 import 'package:flutter_base_app/pkg/social_network_app/app/presenter/tweet/TweetOutBound.dart';
@@ -8,8 +5,7 @@ import 'package:flutter_base_app/pkg/social_network_app/app/presenter/tweet/Twee
 import '../../../store/TweetStore.dart';
 
 class InMemoryGetTweet implements ImplTweetRepository {
-  MemoryStorage storage = MemoryStorage.getInstance();
-  late final TweetStore store = storage.make<TweetStore>() as TweetStore;
+  late final TweetStore store = MemoryStorage().make();
 
   @override
   void getTweet() {

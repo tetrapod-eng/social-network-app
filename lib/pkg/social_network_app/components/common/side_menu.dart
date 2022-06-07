@@ -27,7 +27,7 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final MediaQueryData media = MediaQuery.of(context);
     final double topPadding = media.padding.top;
-    final auth = MemoryStorage.getInstance().make<ImplAuthUseCase>() as MockAuth;
+    final MockAuth auth = MemoryStorage().make();
     const double contentMargin = 10.0;
 
     UserAccount account = auth.getAccount();

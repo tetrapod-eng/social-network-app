@@ -3,13 +3,13 @@ import 'package:flutter_base_app/core/memory_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  MemoryStorage storage = MemoryStorage.getInstance();
+  MemoryStorage storage = MemoryStorage();
 
   test("DIContainer - Success", () {
     final TestContainer container;
-    storage.bind(ImplDIContainer, () { return TestContainer(); });
+    storage.bind<TestContainer>(() => TestContainer());
 
-    container = storage.make<ImplDIContainer>() as TestContainer;
+    container = storage.make();
     expect(container.runtimeType, equals(TestContainer().runtimeType));
   });
 
@@ -18,8 +18,8 @@ void main() {
     TestContainer makeContainer;
     
     container.code = "#HASH_CODE";
-    storage.single(TestContainer, container);
-    makeContainer = storage.make<TestContainer>() as TestContainer;
+    storage.singleton<TestContainer>(container);
+    makeContainer = storage.make();
 
     expect("#HASH_CODE", makeContainer.code);
   });

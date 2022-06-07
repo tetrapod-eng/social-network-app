@@ -10,16 +10,15 @@ import '../../../domain/entities/tweet.dart';
 import './ImplRandomTweetUseCase.dart';
 
 class InMemoryTweetActor implements ImplRandomTweetUseCase {
-  final MemoryStorage storage = MemoryStorage.getInstance();
   late BehaviorSubject<List<Tweet>> subject;
   late final repository;
   late final presenter;
   late final store;
 
   InMemoryTweetActor() {
-    repository = storage.make<ImplTweetRepository>() as InMemoryGetTweet;
-    presenter = storage.make<ImplTweetPresenter>() as TweetPresenter;
-    store = storage.make<TweetStore>() as TweetStore;
+    repository = MemoryStorage().make();
+    presenter = MemoryStorage().make();
+    store = MemoryStorage().make();
   }
 
   @override

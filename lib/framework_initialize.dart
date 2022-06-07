@@ -1,10 +1,12 @@
+import 'package:flutter_base_app/core/drivers/firebase/firebase_initialize.dart';
 import 'package:flutter_base_app/pkg/social_network_app/app/initialize.dart';
 import 'package:flutter_base_app/route.dart';
 
 class FrameworkInitialize {
   static final _ready = [
     // ルーティングの初期化
-    () { Route.registerRouting(); }
+    () { Route.registerRouting(); },
+    () { FirebaseInitialize.register(); },
   ];
 
   // 依存性注入群

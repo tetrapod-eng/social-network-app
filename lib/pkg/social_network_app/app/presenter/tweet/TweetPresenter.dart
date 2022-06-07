@@ -14,8 +14,7 @@ class TweetPresenter implements ImplTweetPresenter {
 
   @override
   void complete(List<TweetOutBound> outbound) {
-    final MemoryStorage storage = MemoryStorage.getInstance();
-    final TweetStore store = storage.make<TweetStore>() as TweetStore;
+    final TweetStore store = MemoryStorage().make();
     List<Tweet> list = [];
 
     for (TweetOutBound item in outbound) {

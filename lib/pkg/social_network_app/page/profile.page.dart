@@ -17,29 +17,41 @@ class ProfilePage extends StatelessWidget {
     final double profileHeight = ((size.width / 398) * 133) + 60;
 
     return Layout(
-       body: Container(
-        width: size.width,
-        height: size.height,
-        decoration: BoxDecoration(
-          color: BaseColor.mainColor()
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            // size: 55,
-            const BackModelHeader(text: "てとらぽっど"),
-            const ProfileAndAvatar(),
-            Container(
-              width: size.width,
-              height: size.height - (profileHeight + 197),
-              decoration: const  BoxDecoration(
-                color: Colors.redAccent
-              ),
-              child: TimelineList(stream: getTweetController.findByUserId("one_pachi"))
-            )
-          ],
-        ),
-      ),
+       body: SizedBox(
+         width: size.width,
+         height: size.height,
+         child: Stack(
+           children: [
+             Positioned(
+               top: 0,
+               left: 0,
+               child: Container(
+                 width: size.width,
+                 height: size.height,
+                 decoration: BoxDecoration(
+                     color: BaseColor.mainColor()
+                 ),
+                 child: Column(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   children: [
+                     // size: 55,
+                     const BackModelHeader(text: "てとらぽっど"),
+                     const ProfileAndAvatar(),
+                     Container(
+                         width: size.width,
+                         height: size.height - (profileHeight + 197),
+                         decoration: const  BoxDecoration(
+                             color: Colors.redAccent
+                         ),
+                         child: TimelineList(stream: getTweetController.findByUserId("one_pachi"))
+                     )
+                   ],
+                 ),
+               ),
+             ),
+           ],
+         ),
+       ),
     );
   }
 }

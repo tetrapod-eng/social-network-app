@@ -1,30 +1,19 @@
 class MemoryStorage {
-  static final MemoryStorage _storage = MemoryStorage();
-  Map<Type, Function> instances = {};
-  Map<Type, Object> singleton = {};
+  static final MemoryStorage _singleton = MemoryStorage._();
+  static final Map<Type, Object Function()> _container = {};
 
-  static MemoryStorage getInstance() {
-    return _storage;
+  factory MemoryStorage() {
+    return _singleton;
+  }
+  MemoryStorage._();
+
+  bind<T>(T Function() bind) {
+    _container[T] = bind as Object Function();
   }
 
-  void bind<T>(T, Function boot) {
-    instances[T] = boot;
+  singleton<T>(T singleton) {
+    _container[T] = () => singleton as Object;
   }
 
-  void single<T>(T, Object object) {
-    singleton[T] = object;
-  }
-
-  Object make<T>() {
-
-    if (singleton.containsKey(T)) { // singleton
-
-      return singleton[T]!;
-    } else if (instances.containsKey(T)) { // Boot
-
-      return instances[T]!();
-    }
-
-    throw Exception("インスタンスの登録がされていません。");
-  }
+  T make<T>() => _container[T]!() as T;
 }
